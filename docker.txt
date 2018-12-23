@@ -1,0 +1,28 @@
+comandi
+	docker run <image> = docker create <image> (copia il filesystem) + docker start -a <container id> (esegue il comando). Il -a serve per stampare l'output del container. Il comando che si dà allo start viene mantenuto anche quando il container esce. Non si può dare un altro comando.
+	docker ps --all -> mostra tutti i container anche quelli stoppati
+	docker system df --> mostra lo spazio disco usato da tutti i container
+	docker system info --> Display system-wide information
+	docker system prune --> elimina tutti i container stoppati, la build cache (tutte le immagini scaricate da docker hub)
+	docker logs <container id>
+	docker stop <container id> --> lancia il segnale di stop SIGTERM (terminate signal). Se non si ferma in 10 secondi il segnale diventa un kill.
+	docker kill <container id> --> lancia il segnale di kill SIGKILL (kill istantaneo).
+	docker exec -it <container id> <command> (i = interattivo. attacca il terminale allo STDIN, t usa un tty)
+	docker exec -it <container id> sh/bash --> apre una bash all'interno del container.
+	docker run -it <image> sh --> crea il container, lo lancia ed apre una shell.
+
+creazione immagine
+	dockerfile --> file di configurazione
+		flow:			1) specify a base image
+						2) run commands to install additional programs
+						3) specify a command to run the container.
+	keywords:
+		FROM --> Set the baseImage to use for subsequent instructions. FROM must be the first instruction in a Dockerfile. (initial operating system)
+		RUN --> Execute any commands on top of the current image as a new layer and commit the results.
+		COPY <folder on build context> <folder into the container>
+		CMD --> Provide defaults for an executing container. There can only be one CMD instruction in a Dockerfile.
+	tagging an image: docker build -t <docker id>/<project name>:version (lastest). Poi con docker run <docker id>/<project name> parte il container senza id generato nella build.
+	
+Nuovo progetto: creazione di un ws node
+
+	
