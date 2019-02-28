@@ -1,0 +1,15 @@
+# specifica la versione di docker compose da usare
+version: '3'
+
+services:
+  redis-server:
+    image: redis
+  node-app:
+    # politiche per il restart
+    restart: on-failure
+    # esegue la build
+    build: .
+    # specifica le porte  
+    ports:
+      - "8081:8081"
+

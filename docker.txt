@@ -17,12 +17,32 @@ creazione immagine
 						2) run commands to install additional programs
 						3) specify a command to run the container.
 	keywords:
-		FROM --> Set the baseImage to use for subsequent instructions. FROM must be the first instruction in a Dockerfile. (initial operating system)
+		FROM --> Set the baseImage to use for subsequent instructions. FROM must be the first instruction in a Dockerfile. (initial operating system). Si può indicare un alias con 'as <alias>'
 		RUN --> Execute any commands on top of the current image as a new layer and commit the results.
 		COPY <folder on build context> <folder into the container>
 		CMD --> Provide defaults for an executing container. There can only be one CMD instruction in a Dockerfile.
-	tagging an image: docker build -t <docker id>/<project name>:version (lastest). Poi con docker run <docker id>/<project name> parte il container senza id generato nella build.
+	tagging an image: docker build -t <docker id>/<project name>:version (lastest). Poi con docker run <docker id>/<project name> parte il container senza id generato nella build. Il parametro -f serve per specificare il file docker da usare
 	
-Nuovo progetto: creazione di un ws node
+docker compose
+	docker-compose up --> cerca il file docker-compose.yml e lancia tutti i container dentro il file yml. Se è la prima volta effettua la build
+	docker-compose up --build --> cerca il file docker-compose.yml, esegue la build e lancia tutti i container dentro il file yml
+	docker-compose build --> cerca il file docker-compose.yml ed esegue la build
+	docker-compose up -d --> come sopra e fa il detach del terminale
+	docker-compose down --> spegne tutti i container
+	
+	restart policy
+		"no" --> non esegue mai il restart
+		always --> esegue il restart dopo un crush per ogni ragione
+		on-failure --> esegue il restart solo in caso di codice d'errore (tutti i codici di exit tranne lo 0)
+		unless-stopped --> esegue il restart a fronte di uno stop forzato
+		
+	docker-compose ps --> come il ps di docker
+		
+Volumi
+	docker run -v $(pwd):/app --> mappa la cartella corrente della cartella app dentro il container
 
-	
+Docker attach
+	manda l'input dal nostro terminale direttamente verso un container specifico (prende il processo primario)
+
+Multi-step build process
+	in un file docker abbiamo la configurazione per la build e quella per lo start
